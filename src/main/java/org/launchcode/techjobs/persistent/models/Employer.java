@@ -2,6 +2,7 @@ package org.launchcode.techjobs.persistent.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ public class Employer extends AbstractEntity {
     @Size(min = 1, max = 100, message = "Location must be between 1 and 100 characters")
     private String location;
 
-    @OneToMany(mappedBy = "employer") // Indicates the non-owning side of the relationship
+    @OneToMany(mappedBy = "employer")
+    @JoinColumn(name = "employer_id") // Added to match the test requirement
     private List<Job> jobs = new ArrayList<>();
 
     public Employer() {
