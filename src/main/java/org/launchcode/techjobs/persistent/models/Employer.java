@@ -1,9 +1,11 @@
-
 package org.launchcode.techjobs.persistent.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Employer extends AbstractEntity {
@@ -12,17 +14,25 @@ public class Employer extends AbstractEntity {
     @Size(min = 1, max = 100, message = "Location must be between 1 and 100 characters")
     private String location;
 
-    // No-arg constructor required for Hibernate
+    @OneToMany(mappedBy = "employer") // Indicates the non-owning side of the relationship
+    private List<Job> jobs = new ArrayList<>();
+
     public Employer() {
     }
 
-    // Getter for location
     public String getLocation() {
         return location;
     }
 
-    // Setter for location
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 }
