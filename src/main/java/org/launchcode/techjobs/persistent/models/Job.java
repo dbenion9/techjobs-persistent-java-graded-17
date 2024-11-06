@@ -23,6 +23,9 @@ public class Job extends AbstractEntity {
     )
     private List<Skill> skills = new ArrayList<>();
 
+    // Default constructor
+    public Job() {}
+
     // Getter and setter for employer
     public Employer getEmployer() {
         return employer;
