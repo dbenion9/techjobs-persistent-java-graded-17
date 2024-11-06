@@ -3,24 +3,19 @@ package org.launchcode.techjobs.persistent.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Employer extends AbstractEntity {
 
-    @NotBlank(message = "Location cannot be blank")
-    @Size(min = 1, max = 100, message = "Location must be between 1 and 100 characters")
     private String location;
 
-    @OneToMany(mappedBy = "employer")
-    @JoinColumn(name = "employer_id") // Added to match the test requirement
+    @OneToMany  // Removed mappedBy to make this the owning side
+    @JoinColumn(name = "employer_id")  // Specifies the foreign key in the Job table
     private List<Job> jobs = new ArrayList<>();
 
-    public Employer() {
-    }
+    public Employer() {}
 
     public String getLocation() {
         return location;

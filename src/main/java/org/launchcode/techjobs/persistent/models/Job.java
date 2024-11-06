@@ -4,26 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Job extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn(name = "employer_id") // Specifies the foreign key column
-    @NotNull(message = "Employer cannot be null")
+    @JoinColumn(name = "employer_id")
     private Employer employer;
 
     @ManyToMany
-    private Set<Skill> skills = new HashSet<>(); // Initializes the skills set
+    private List<Skill> skills = new ArrayList<>();
 
-    // Constructor
-    public Job() {
-    }
-
-    // Getters and setters for employer
+    // Getter and setter for employer
     public Employer getEmployer() {
         return employer;
     }
@@ -33,11 +27,13 @@ public class Job extends AbstractEntity {
     }
 
     // Getter and setter for skills
-    public Set<Skill> getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(Set<Skill> skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
+
+    // Other fields, constructors, getters, and setters
 }
