@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinTable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,11 @@ public class Job extends AbstractEntity {
     private Employer employer;
 
     @ManyToMany
+    @JoinTable(
+            name = "job_skill", // Name of the join table
+            joinColumns = @JoinColumn(name = "job_id"), // Foreign key for Job
+            inverseJoinColumns = @JoinColumn(name = "skill_id") // Foreign key for Skill
+    )
     private List<Skill> skills = new ArrayList<>();
 
     // Getter and setter for employer

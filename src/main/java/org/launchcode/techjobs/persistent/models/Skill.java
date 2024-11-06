@@ -1,40 +1,62 @@
 package org.launchcode.techjobs.persistent.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToMany;
-import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Skill extends AbstractEntity {
+public class Skill {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String name;
+    private String description; // Add the description field
 
     @ManyToMany(mappedBy = "skills")
     private List<Job> jobs = new ArrayList<>();
 
-    @Size(max = 500, message = "Description must not exceed 500 characters")
-    private String description;
+    // Constructors
+    public Skill() {}
 
-    // No-arg constructor required for Hibernate
-    public Skill() {
+    public Skill(String name, String description) {
+        this.name = name;
+        this.description = description; // Initialize description
     }
 
-    // Getter for description
+    // Getters and Setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
-        return description;
+        return description; // Add getter for description
     }
 
-    // Setter for description
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description; // Add setter for description
     }
 
-    // Getter for jobs
     public List<Job> getJobs() {
         return jobs;
     }
 
-    // Setter for jobs
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
     }
