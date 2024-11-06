@@ -51,7 +51,10 @@ public class HomeController {
                                     @RequestParam int employerId,
                                     @RequestParam List<Integer> skills) {  // Accept a list of skill IDs
 
-        if (errors.hasErrors()) {
+        //System.out.println("Entered processAddJobForm"); // Add this print statement at the beginning
+
+
+         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
             model.addAttribute("employers", employerRepository.findAll());
             model.addAttribute("skills", skillRepository.findAll());  // Add skills to the model if there are errors
@@ -70,6 +73,9 @@ public class HomeController {
             model.addAttribute("errorMessage", "Employer not found");
             return "add";
         }
+
+        // Debugging print statement to confirm that findAllById is called with skills
+       // System.out.println("Calling findAllById with skills: " + skills);
 
         // Retrieve and set the list of skills on the job
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
