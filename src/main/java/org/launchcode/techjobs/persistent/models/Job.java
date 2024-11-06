@@ -11,7 +11,7 @@ import java.util.List;
 public class Job extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn(name = "employer_id")
+    @JoinColumn(name = "employer_id")  // owning side of the relationship
     private Employer employer;
 
     @ManyToMany
@@ -34,6 +34,4 @@ public class Job extends AbstractEntity {
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
-
-    // Other fields, constructors, getters, and setters
 }
