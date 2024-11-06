@@ -26,6 +26,12 @@ public class Job extends AbstractEntity {
     // Default constructor
     public Job() {}
 
+    // Non-default constructor to handle employer and skills
+    public Job(Employer employer, List<Skill> skills) {
+        this.employer = employer;
+        this.skills = skills;
+    }
+
     // Getter and setter for employer
     public Employer getEmployer() {
         return employer;
