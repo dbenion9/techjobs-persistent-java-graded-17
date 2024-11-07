@@ -20,7 +20,7 @@ public class SkillController {
     private SkillRepository skillRepository;
 
     // Index method to display a list of all skills
-    @GetMapping("")
+    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("skills", skillRepository.findAll());
         return "skills/index";

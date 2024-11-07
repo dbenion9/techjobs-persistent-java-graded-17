@@ -20,7 +20,7 @@ public class EmployerController {
     private EmployerRepository employerRepository;
 
     // Handler method to display the list of all employers
-    @GetMapping("")
+    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("employers", employerRepository.findAll());
         return "employers/index";
