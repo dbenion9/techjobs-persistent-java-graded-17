@@ -49,41 +49,26 @@ public class HomeController {
                                     Errors errors,
                                     Model model,
                                     @RequestParam int employerId,
-                                    @RequestParam List<Integer> skills) {  // Accept a list of skill IDs
+                                    @RequestParam List<Integer> skills) {
 
-        //System.out.println("Entered processAddJobForm"); // Add this print statement at the beginning
-
-
-         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Job");
-            model.addAttribute("employers", employerRepository.findAll());
-            model.addAttribute("skills", skillRepository.findAll());  // Add skills to the model if there are errors
-            return "add";
-        }
-
-        // Set employer on the job
-        Optional<Employer> result = employerRepository.findById(employerId);
-        if (result.isPresent()) {
-            Employer employer = result.get();
-            newJob.setEmployer(employer);
-        } else {
+        if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
             model.addAttribute("employers", employerRepository.findAll());
             model.addAttribute("skills", skillRepository.findAll());
-            model.addAttribute("errorMessage", "Employer not found");
             return "add";
         }
 
-        // Debugging print statement to confirm that findAllById is called with skills
-       // System.out.println("Calling findAllById with skills: " + skills);
+        // Set employer
+        Optional<Employer> result = employerRepository.findById(employerId);
+        result.ifPresent(newJob::setEmployer);
 
-        // Retrieve and set the list of skills on the job
-        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+        // Retrieve skills
+        System.out.println("Calling findAllById with skills list: " + skills);
+        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById((Iterable<Integer>) skills);
+        System.out.println("Skills retrieved: " + skillObjs);
         newJob.setSkills(skillObjs);
 
-        // Save the job
         jobRepository.save(newJob);
-
         return "redirect:";
     }
 
