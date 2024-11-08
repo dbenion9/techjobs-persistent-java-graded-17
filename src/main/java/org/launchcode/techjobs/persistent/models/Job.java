@@ -39,6 +39,8 @@ public class Job extends AbstractEntity {
 
     public void setEmployer(Employer employer) {
         this.employer = employer;
+        System.out.println("Setting employer: " + (employer != null ? employer.getId() : "null")); // Debug statement
+        this.employer = employer;
     }
 
     // Getter and setter for skills
