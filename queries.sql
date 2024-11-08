@@ -11,10 +11,10 @@ SELECT name FROM employer WHERE location = "St. Louis City";
 --Part 3
 DROP TABLE job;
 --Part 4
-SELECT skill.name
+SELECT DISTINCT skill.name
 FROM skill
 JOIN job_skill ON skill.id = job_skill.skill_id
-WHERE job_skill.job_id IS NOT NULL
 ORDER BY skill.name ASC;
+
 
 
