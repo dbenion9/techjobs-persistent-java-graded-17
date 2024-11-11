@@ -218,6 +218,10 @@ public class TestTaskFour extends AbstractTest {
     @Test
     public void testSqlQuery () throws IOException {
         String queryFileContents = getFileContents("queries.sql");
+        System.out.println("Query from file: " + queryFileContents);
+        String expectedQuery = "";
+        System.out.println("Expected query:\n" + expectedQuery);
+        System.out.println("Actual query:\n" + queryFileContents);
 
         Pattern queryPattern = Pattern.compile("SELECT\\s+\\*\\s+FROM\\s+skill" +
                 "\\s*(LEFT|INNER)?\\s+JOIN\\s+job_skills\\s+ON\\s+(skill.id\\s+=\\s+job_skills.skills_id|job_skills.skills_id\\s+=\\s+skill.id)" +
