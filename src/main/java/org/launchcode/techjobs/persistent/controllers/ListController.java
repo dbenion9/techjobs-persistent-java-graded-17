@@ -49,15 +49,20 @@ public class ListController {
     @RequestMapping(value = "jobs")
     public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam String value) {
         Iterable<Job> jobs;
-        if (column.toLowerCase().equals("all")) {
+        if (column.equalsIgnoreCase("all")) {
             jobs = jobRepository.findAll();
             model.addAttribute("title", "All Jobs");
+        } else if (column.equalsIgnoreCase("employer")) {
+            jobs = jobRepository.findByEmployer_Name(value);
+            model.addAttribute("title", "Jobs with Employer: " + value);
+        } else if (column.equalsIgnoreCase("skill")) {
+            jobs = jobRepository.findBySkills_Name(value);
+            model.addAttribute("title", "Jobs with Skill: " + value);
         } else {
             jobs = JobData.findByColumnAndValue(column, value, jobRepository.findAll());
             model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
         }
         model.addAttribute("jobs", jobs);
-
         return "list-jobs";
     }
 }
