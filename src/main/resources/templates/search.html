@@ -41,13 +41,13 @@
             <p><strong>Job Id:</strong> <span th:text="${job.id}"></span></p>
             <p><strong>Name:</strong> <span th:text="${job.name}"></span></p>
             <p><strong>Employer:</strong>
-                <a th:href="@{/employer/{id}(id=${job.employer.id})}" th:text="${job.employer.name}"></a>
+                <a th:href="@{/employers/view/{id}(id=${job.employer.id})}" th:text="${job.employer.name}"></a>
             </p>
             <p><strong>Skills:</strong>
                 <span th:if="${job.skills.size() > 0}">
                     <ul style="margin-top: 5px; padding-left: 20px; list-style-type: disc;">
                         <li th:each="skill : ${job.skills}">
-                            <a th:href="@{/skill/{id}(id=${skill.id})}" th:text="${skill.name}"></a>
+                            <a th:href="@{/skills/view/{id}(id=${skill.id})}" th:text="${skill.name}"></a>
                         </li>
                     </ul>
                 </span>
