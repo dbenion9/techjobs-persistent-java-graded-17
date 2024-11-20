@@ -4,7 +4,7 @@
 <body>
 <div th:replace="~{fragments :: page-header}"></div>
 <div class="container body-content">
-    <h1 th:text="${title}"></h1>
+    <h1 th:text="${title}">Search Results</h1>
 
     <!-- Search form -->
     <form th:action="@{/search/results}" method="post" style="margin-bottom: 20px;">
@@ -30,59 +30,58 @@
 
     <hr/>
 
-    <!-- Display custom message after search -->
-    <h2 th:text="${resultMessage}"></h2>
-
-    <!-- Loop over search results to display each job -->
-    <div th:if="${jobs != null} and ${jobs.size() > 0}">
+    <!-- Display search results -->
+    <div th:if="${jobs != null and jobs.size() > 0}">
         <div th:each="job, iterStat : ${jobs}"
-             th:class="${iterStat.index % 2 == 0 ? 'job-box dark-gray-background' : 'job-box white-background'}"
-             style="margin-bottom: 10px; padding: 10px; border-radius: 4px; border: 1px solid #ccc; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); width: 80%; margin: auto;">
-            <p><strong>Job Id:</strong> <span th:text="${job.id}"></span></p>
+             th:class="${iterStat.index % 2 == 0 ? 'job-box dark-gray-background' : 'job-box white-background'}">
+            <p><strong>Job ID:</strong> <span th:text="${job.id}"></span></p>
             <p><strong>Name:</strong> <span th:text="${job.name}"></span></p>
             <p><strong>Employer:</strong>
                 <a th:href="@{/employers/view/{id}(id=${job.employer.id})}" th:text="${job.employer.name}"></a>
             </p>
             <p><strong>Skills:</strong>
-                <span th:if="${job.skills.size() > 0}">
-                    <ul style="margin-top: 5px; padding-left: 20px; list-style-type: disc;">
+                <span th:if="${job.skills != null and job.skills.size() > 0}">
+                    <ul>
                         <li th:each="skill : ${job.skills}">
                             <a th:href="@{/skills/view/{id}(id=${skill.id})}" th:text="${skill.name}"></a>
                         </li>
                     </ul>
                 </span>
+                <span th:if="${job.skills == null or job.skills.size() == 0}">None listed</span>
             </p>
         </div>
     </div>
 
-    <!-- Message if no jobs found -->
-    <div th:if="${jobs == null or jobs.size() == 0}">
+    <!-- Message if no results -->
+    <!-- <div th:if="${jobs == null or jobs.size() == 0}">
+        <p>No jobs match your search criteria.</p>
     </div>
+</div>-->
 
-
+<!-- CSS styles -->
 <style>
     .dark-gray-background {
-        background-color: #cccccc; /* Darker gray for better contrast */
+        background-color: #cccccc;
     }
     .white-background {
         background-color: #ffffff;
     }
     .job-box {
-        width: 80%; /* Stretches the box more across the page */
-        max-width: 900px; /* Ensures it doesn't get too wide on large screens */
-        margin: auto; /* Center-align within the container */
-        padding: 10px; /* Tighter padding for a compact look */
-        border-radius: 4px;
         border: 1px solid #ccc;
-        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for a card effect */
+        border-radius: 5px;
+        padding: 15px;
+        margin: 10px auto;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 900px;
     }
     input[type="submit"] {
-        padding: 4px 8px; /* Smaller padding for a compact button */
-        background-color: white; /* White background for a basic look */
-        color: black;
+        padding: 5px 10px;
         border: 1px solid #ccc;
+        background-color: white;
+        color: black;
         cursor: pointer;
     }
 </style>
 </body>
-</html></html>
+</html>
